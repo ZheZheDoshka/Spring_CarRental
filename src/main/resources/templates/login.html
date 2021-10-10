@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Login</title>
 </head>
 <body>
-
+<form>
+    <div><label th:text="#{login.username}">  <input type="text" name="username"/> </label></div>
+    <div><label th:text="#{login.password}"> <input type="password" name="password"/> </label></div>
+    <div><input type="submit" th:text="#{login.signin}"></div>
+</form>
 </body>
 </html>

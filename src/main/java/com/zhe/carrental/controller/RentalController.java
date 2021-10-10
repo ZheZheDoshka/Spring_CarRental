@@ -13,4 +13,10 @@ public class RentalController {
         model.addAttribute("title", "mainpage");
         return "home";
     }
+
+    @GetMapping("/login")
+    public String login(Model model) {
+        model.addAttribute("title", "login");
+        return "login";
+    }
 }
