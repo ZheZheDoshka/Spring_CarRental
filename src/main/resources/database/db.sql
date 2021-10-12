@@ -1,9 +1,9 @@
 
 CREATE TABLE users (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-    username VARCHAR(25) NOT NULL UNIQUE ,
-    password VARCHAR(25) NOT NULL ,
+    username VARCHAR(32) NOT NULL UNIQUE ,
+    password VARCHAR(32) NOT NULL ,
     role VARCHAR(10),
-    ban VARCHAR(10)
+    ban VARCHAR(12)
 );
 
