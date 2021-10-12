@@ -1,6 +1,6 @@
 package com.zhe.carrental.model.entity;
 
-import com.zhe.carrental.model.enums.Roles;
+import com.zhe.carrental.model.enums.Role;
 import com.zhe.carrental.model.enums.Status;
 
 import lombok.AllArgsConstructor;
@@ -29,7 +29,7 @@ public class User {
     private String password;
 
     @Column(name = "role")
-    private Roles role;
+    private Role role;
 
     @Column(name = "ban")
     private Status status;

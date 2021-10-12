@@ -1,6 +1,6 @@
 package com.zhe.carrental.model.enums;
 
-public enum Roles {
+public enum Role {
     ADMIN,
     MANAGER,
     USER;

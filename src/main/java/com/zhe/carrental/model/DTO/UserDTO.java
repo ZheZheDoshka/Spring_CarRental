@@ -1,6 +1,6 @@
 package com.zhe.carrental.model.DTO;
 
-import com.zhe.carrental.model.enums.Roles;
+import com.zhe.carrental.model.enums.Role;
 import com.zhe.carrental.model.enums.Status;
 
 import lombok.AllArgsConstructor;
@@ -19,7 +19,7 @@ public class UserDTO {
     private Long id;
     private String username;
     private String password;
-    private Roles role;
+    private Role role;
     private Status status;
 
 }
