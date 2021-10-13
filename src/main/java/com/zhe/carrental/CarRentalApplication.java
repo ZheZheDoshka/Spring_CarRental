@@ -1,5 +1,6 @@
 package com.zhe.carrental;
 
+import com.zhe.carrental.service.SecurityService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -12,8 +13,4 @@ public class CarRentalApplication {
         SpringApplication.run(CarRentalApplication.class, args);
     }
 
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 }
