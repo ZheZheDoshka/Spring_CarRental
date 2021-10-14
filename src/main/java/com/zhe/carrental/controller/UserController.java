@@ -12,8 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.ws.RequestWrapper;
-
 @Controller
 public class UserController {
 
@@ -23,13 +21,20 @@ public class UserController {
     @Autowired
     private UserValidator userValidator;
 
-    private SecurityService securityService; //не понял?
+    @Autowired
+    private SecurityService securityService;
 
     @Autowired
     private ModelMapper mapper;
 
     @GetMapping("/home")
     public String home(Model model) {
+        return "home";
+    }
+
+
+    @GetMapping("/")
+    public String home2(Model model) {
         return "home";
     }
 
@@ -48,5 +53,18 @@ public class UserController {
         User user = mapper.map(userDTO, User.class);
         userService.save(user);
         return "redirect:/home";
+    }
+
+    @GetMapping("/login")
+    public String login(Model model, String error, String logout) {
+        if(error != null) {
+            model.addAttribute("error","login.error");
+        }
+
+        if(logout != null) {
+            model.addAttribute("message","login.out");
+        }
+
+        return "login";
     }
 }
