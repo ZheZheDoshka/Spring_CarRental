@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,13 +21,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
+    private final String ROLE_PREFIX = "ROLE_";
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
         if (user == null)
             throw (new UsernameNotFoundException(username));
-        Set<GrantedAuthority> grantedAuthority = new HashSet<>();
-        grantedAuthority.add(new SimpleGrantedAuthority(user.getRole().name()));
+        Collection<GrantedAuthority> grantedAuthority = new ArrayList<>();
+        grantedAuthority.add(new SimpleGrantedAuthority(ROLE_PREFIX + user.getRole().getAuthority()));
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthority);
     }
 }

@@ -2,6 +2,7 @@ package com.zhe.carrental.controller;
 
 import com.zhe.carrental.model.DTO.UserDTO;
 import com.zhe.carrental.model.entity.User;
+import com.zhe.carrental.service.ManagerService;
 import com.zhe.carrental.service.SecurityService;
 import com.zhe.carrental.service.UserService;
 import com.zhe.carrental.validator.UserValidator;
@@ -17,6 +18,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    //admin
+    @Autowired
+    private ManagerService managerService;
 
     @Autowired
     private UserValidator userValidator;
@@ -31,7 +35,11 @@ public class UserController {
     public String home(Model model) {
         return "home";
     }
-
+    //admin
+    @GetMapping("/admin")
+    public String admin(Model model) {
+        return "admin";
+    }
 
     @GetMapping("/")
     public String home2(Model model) {
@@ -46,7 +54,7 @@ public class UserController {
 
     @PostMapping("/registration")
     public String registration(@ModelAttribute("userForm") UserDTO userForm, BindingResult bindingResult) {
-        userValidator.validate(userForm, bindingResult);
+        //userValidator.validate(userForm, bindingResult);
         if (bindingResult.hasErrors()) {
             return "registration";
         }
@@ -66,5 +74,28 @@ public class UserController {
         }
 
         return "login";
+    }
+
+    @GetMapping("/logout")
+    public String logout(Model model) {
+        return "logout";
+    }
+
+    //admin
+    @GetMapping("/registration_manager")
+    public String manager_registration(Model model) {
+        model.addAttribute("userForm", new UserDTO());
+        return "registration_manager";
+    }
+
+    @PostMapping("/registration_manager")
+    public String manager_registration(@ModelAttribute("userForm") UserDTO userForm, BindingResult bindingResult) {
+        //userValidator.validate(userForm, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "registration_manager";
+        }
+        User user = mapper.map(userForm, User.class);
+        managerService.save(user);
+        return "redirect:/home";
     }
 }

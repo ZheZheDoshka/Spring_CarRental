@@ -28,9 +28,11 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @Enumerated(value = EnumType.STRING)
     @Column(name = "role")
     private Role role;
 
+    @Enumerated(value = EnumType.STRING)
     @Column(name = "ban")
     private Status status;
 }

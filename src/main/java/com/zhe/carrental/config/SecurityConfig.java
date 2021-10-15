@@ -23,12 +23,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .disable()
                 .authorizeRequests()
                 .antMatchers("/registration/**", "/login/**").permitAll()
+                .antMatchers("/admin/**, /registration_manager/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login").permitAll()
-                .defaultSuccessUrl("/home", true);
-
+                .defaultSuccessUrl("/home", true)
+                .and()
+                .logout()
+                .logoutSuccessUrl("/login")
+                .logoutUrl("/logout")
+                .permitAll();
     }
 
 

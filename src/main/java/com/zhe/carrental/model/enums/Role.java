@@ -1,7 +1,15 @@
 package com.zhe.carrental.model.enums;
 
-public enum Role {
+import org.springframework.security.core.GrantedAuthority;
+
+public enum Role implements GrantedAuthority {
     ADMIN,
     MANAGER,
-    USER
+    USER;
+
+
+    @Override
+    public String getAuthority() {
+        return name();
+    }
 }
