@@ -22,7 +22,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(User user) {
-        user.setUsername(user.getUsername());
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRole(Role.USER);
         user.setStatus(Status.Not_banned);

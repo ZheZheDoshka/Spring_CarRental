@@ -5,6 +5,27 @@
     <title>Title</title>
 </head>
 <body>
+<form action = "/registration" method="post" class="form-signin" >
+    <div class="row">
+        <div class="container h-100">
+            <div class = "form-group">
+                <label for="username" th:utext="#{login.username}"></label>
+                <input type="text"
+                       name="username"
+                       class="form-control"
+                       id="username">
+            </div>
+            <div class = "form-group">
+                <label for="password" th:utext="#{login.password}"></label>
+                <input type="text"
+                       name="password"
+                       class="form-control"
+                       id="password">
+            </div>
+            <button type="submit" class="btn btn-default" th:utext="#{login.signin}"></button>
+        </div>
+    </div>
+</form>
 
 </body>
 </html>

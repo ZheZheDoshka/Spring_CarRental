@@ -45,12 +45,12 @@ public class UserController {
     }
 
     @PostMapping("/registration")
-    public String registration(@ModelAttribute("userForm") UserDTO userDTO, BindingResult bindingResult) {
-        userValidator.validate(userDTO, bindingResult);
+    public String registration(@ModelAttribute("userForm") UserDTO userForm, BindingResult bindingResult) {
+        userValidator.validate(userForm, bindingResult);
         if (bindingResult.hasErrors()) {
             return "registration";
         }
-        User user = mapper.map(userDTO, User.class);
+        User user = mapper.map(userForm, User.class);
         userService.save(user);
         return "redirect:/home";
     }
