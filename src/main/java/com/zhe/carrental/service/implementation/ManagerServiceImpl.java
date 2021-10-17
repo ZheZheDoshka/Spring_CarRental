@@ -28,7 +28,7 @@ public class ManagerServiceImpl implements ManagerService {
 
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRole(Role.MANAGER);
-        user.setStatus(Status.Not_banned);
+        user.setStatus(Status.PERMITTED);
         userRepository.save(user);
     }
 }

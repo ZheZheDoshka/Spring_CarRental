@@ -2,22 +2,29 @@ package com.zhe.carrental.controller;
 
 import com.zhe.carrental.model.DTO.UserDTO;
 import com.zhe.carrental.model.entity.User;
+import com.zhe.carrental.repository.UserRepository;
 import com.zhe.carrental.service.ManagerService;
 import com.zhe.carrental.service.SecurityService;
 import com.zhe.carrental.service.UserService;
 import com.zhe.carrental.validator.UserValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserRepository userRepository;
     //admin
     @Autowired
     private ManagerService managerService;
@@ -35,11 +42,7 @@ public class UserController {
     public String home(Model model) {
         return "home";
     }
-    //admin
-    @GetMapping("/admin")
-    public String admin(Model model) {
-        return "admin";
-    }
+
 
     @GetMapping("/")
     public String home2(Model model) {
@@ -81,21 +84,5 @@ public class UserController {
         return "logout";
     }
 
-    //admin
-    @GetMapping("/registration_manager")
-    public String manager_registration(Model model) {
-        model.addAttribute("userForm", new UserDTO());
-        return "registration_manager";
-    }
 
-    @PostMapping("/registration_manager")
-    public String manager_registration(@ModelAttribute("userForm") UserDTO userForm, BindingResult bindingResult) {
-        //userValidator.validate(userForm, bindingResult);
-        if (bindingResult.hasErrors()) {
-            return "registration_manager";
-        }
-        User user = mapper.map(userForm, User.class);
-        managerService.save(user);
-        return "redirect:/home";
-    }
 }

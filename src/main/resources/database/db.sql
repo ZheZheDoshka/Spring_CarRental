@@ -11,6 +11,10 @@ CREATE TABLE users (
 
 );
 
+CREATE TABLE brands (
+    brand VARCHAR(64) NOT NULL UNIQUE
+);
+
 CREATE TABLE cars (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
     brand VARCHAR(64) NOT NULL ,
@@ -20,8 +24,8 @@ CREATE TABLE cars (
     CONSTRAINT brandLink FOREIGN KEY (brand) REFERENCES brands (brand) ON DELETE CASCADE
 );
 
-CREATE TABLE brands (
-    brand VARCHAR(64) NOT NULL UNIQUE
-);
 
-INSERT INTO users VALUES (1, 'admin1610', '$2a$12$odumr60QQXCkeA/TOhvJZ.GHC5CZO8H4BRRlZSIzrX.0OhrfDpJwO', 'ADMIN', 'Not_banned');
+
+INSERT INTO users VALUES (1, 'admin1610', '$2a$12$odumr60QQXCkeA/TOhvJZ.GHC5CZO8H4BRRlZSIzrX.0OhrfDpJwO', 'ADMIN', 'PERMITTED');
+
+INSERT INTO users VALUES (2, 'testUser', '$2a$12$odumr60QQXCkeA/TOhvJZ.GHC5CZO8H4BRRlZSIzrX.0OhrfDpJwO', 'USER', 'PERMITTED');
