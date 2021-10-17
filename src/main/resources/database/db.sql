@@ -1,4 +1,6 @@
 DROP TABLE users;
+DROP TABLE cars;
+DROP TABLE brands;
 
 CREATE TABLE users (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
@@ -9,5 +11,17 @@ CREATE TABLE users (
 
 );
 
-INSERT INTO users VALUES (1, 'hellmin', '$2a$12$odumr60QQXCkeA/TOhvJZ.GHC5CZO8H4BRRlZSIzrX.0OhrfDpJwO', 'ADMIN', 'Not_banned');
+CREATE TABLE cars (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+    brand VARCHAR(64) NOT NULL ,
+    class VARCHAR(2) NOT NULL ,
+    model VARCHAR(250) NOT NULL ,
+    price VARCHAR(64) NOT NULL ,
+    CONSTRAINT brandLink FOREIGN KEY (brand) REFERENCES brands (brand) ON DELETE CASCADE
+);
 
+CREATE TABLE brands (
+    brand VARCHAR(64) NOT NULL UNIQUE
+);
+
+INSERT INTO users VALUES (1, 'admin1610', '$2a$12$odumr60QQXCkeA/TOhvJZ.GHC5CZO8H4BRRlZSIzrX.0OhrfDpJwO', 'ADMIN', 'Not_banned');
