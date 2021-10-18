@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface AdminService {
 
-
+    void deleteCarById(Long id);
 
     List<User> findAllUsers();
 

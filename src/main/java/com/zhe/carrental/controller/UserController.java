@@ -46,7 +46,7 @@ public class UserController {
     @GetMapping("/home")
     public String home(Model model) {
         List<Car> cars = carService.findAllCars();
-        model.addAttribute("home", cars);
+        model.addAttribute("cars", cars);
         return "home";
     }
 

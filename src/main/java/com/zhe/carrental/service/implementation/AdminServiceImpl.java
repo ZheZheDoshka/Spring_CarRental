@@ -32,6 +32,11 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    public void deleteCarById(Long id) {
+        adminCarRepository.deleteById(id);
+    }
+
+    @Override
     @Transactional
     public void updateStatus(Long id, Status status) {
         adminUserRepository.changeUserStatus(id ,status);

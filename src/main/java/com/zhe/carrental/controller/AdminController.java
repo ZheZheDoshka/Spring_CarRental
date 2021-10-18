@@ -19,8 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-//@PreAuthorize("hasRole('ADMIN')")
-//@RequestMapping("/admin")
+@PreAuthorize("hasRole('ADMIN')")
 public class AdminController {
 
     @Autowired
@@ -105,6 +104,33 @@ public class AdminController {
             return "ucaradd";
         }
         Car car = mapper.map(carForm, Car.class);
+        carService.save(car);
+        return "redirect:/ucarcontrol";
+    }
+
+    @PostMapping("/{id}/delete")
+    public String CarDelete(@PathVariable String id){
+        Long sId = Long.valueOf(id);
+        adminService.deleteCarById(sId);
+        return "redirect:/ucarcontrol";
+    }
+
+    @GetMapping("/{id}/caredit")
+    public String CarEdit(Model model, @PathVariable String id) {
+        model.addAttribute("carForm", new CarDTO());
+        model.addAttribute("id", id);
+        return "ucaredit";
+    }
+
+    @PostMapping("/{id}/caredit")
+    public String CarEdit(@ModelAttribute("carForm") CarDTO carForm, BindingResult bindingResult, @PathVariable String id){
+        Long sId = Long.valueOf(id);
+        adminService.deleteCarById(sId);
+        if (bindingResult.hasErrors()) {
+            return "ucaredit";
+        }
+        Car car = mapper.map(carForm, Car.class);
+        car.setId(sId);
         carService.save(car);
         return "redirect:/ucarcontrol";
     }

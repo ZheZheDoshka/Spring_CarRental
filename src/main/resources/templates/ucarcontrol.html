@@ -21,13 +21,11 @@
             <div class="col-xs-6 col-md-2" th:text = "${car.getPrice()}"></div>
             <div class="col-xs-6 col-md-2" th:text = "${car.getStatus()}"></div>
             <div class="col-xs-6 col-md-2" >
-                <form method="POST" action="/${user.getId()}/ban" class="form-signin">
-                    <button class="btn btn-light" type="submit" th:utext="#{admin.car.edit}"></button>
-                </form>
+                    <a class="btn btn-light" th:href ="@{'/'+ ${car.getId()} + '/caredit'}" th:utext="#{admin.car.edit}"></a>
             </div>
             <div class="col-xs-6 col-md-2" >
-                <form method="POST" action="/${user.getId()}/ban" class="form-signin">
-                    <button class="btn btn-light" type="submit" th:utext="#{adnin.car.delete}"></button>
+                <form method="POST" th:action="@{'/'+ ${car.getId()} + '/delete'}" class="form-signin">
+                    <button class="btn btn-light" type="submit" th:utext="#{admin.car.delete}"></button>
                 </form>
             </div>
         </div>
