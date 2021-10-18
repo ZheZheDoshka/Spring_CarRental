@@ -3,6 +3,7 @@ package com.zhe.carrental.service.implementation;
 import com.zhe.carrental.model.entity.Car;
 import com.zhe.carrental.model.entity.User;
 import com.zhe.carrental.model.enums.Status;
+import com.zhe.carrental.repository.AdminCarRepository;
 import com.zhe.carrental.repository.AdminUserRepository;
 import com.zhe.carrental.repository.UserRepository;
 import com.zhe.carrental.service.AdminService;
@@ -20,6 +21,9 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     AdminUserRepository adminUserRepository;
+
+    @Autowired
+    AdminCarRepository adminCarRepository;
 
     @Override
     public List<User> findAllUsers() {

@@ -15,17 +15,17 @@
 
     <div class="alert alert-info mt-2", th:each="user : ${users}" >
         <div class="row">
-            <div class="col-xs-6 col-md-4" th:text = "${user.getUsername()}">  </div>
-            <div class="col-xs-6 col-md-4" th:text = "${user.getRole().name()}">  </div>
-            <div class="col-xs-6 col-md-4" th:text = "${user.getStatus().name()}"></div>
-                <div th:switch="${user.getStatus().name()}">
+            <div class="col-xs-6 col-md-2" th:text = "${user.getUsername()}"></div>
+            <div class="col-xs-6 col-md-2" th:text = "${user.getRole().name()}"></div>
+            <div class="col-xs-6 col-md-2" th:text = "${user.getStatus().name()}"></div>
+                <div class="col-xs-6 col-md-2" th:switch="${user.getStatus().name()}">
                     <p th:case="'PERMITTED'">
-                        <form method="POST" action="/${user.getId()}/ban" class="form-signin">
+                        <form method="POST" th:action="@{'/'+ ${user.getId()} + '/permit'}" class="form-signin">
                             <button class="btn btn-light" type="submit" th:utext="#{admin.user.ban}"></button>
                         </form>
                     </p>
                         <p th:case="'BANNED'">
-                        <form method="POST" action="/${user.getId()}/permit" class="form-signin">
+                        <form method="POST" th:action="@{'/'+ ${user.getId()} + '/permit'}" class="form-signin">
                             <button class="btn btn-light" type="submit" th:utext="#{admin.user.permit}"></button>
                         </form>
                     </p>

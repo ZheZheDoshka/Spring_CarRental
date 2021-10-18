@@ -11,8 +11,5 @@ public interface UserService {
 
     User findByUsername(String username);
 
-    List<Car> findAllCars();
-
-    List<Car> findAllCars(String sort);
 
 }

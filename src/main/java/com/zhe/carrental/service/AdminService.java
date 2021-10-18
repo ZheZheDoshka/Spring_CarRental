@@ -9,6 +9,9 @@ import java.util.List;
 
 public interface AdminService {
 
+
+
     List<User> findAllUsers();
+
     void updateStatus(Long id, Status status);
 }

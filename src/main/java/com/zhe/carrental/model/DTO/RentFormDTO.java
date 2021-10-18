@@ -1,23 +1,26 @@
 package com.zhe.carrental.model.DTO;
 
-import com.zhe.carrental.model.enums.CarClass;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.persistence.Column;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class CarDTO {
+public class RentFormDTO {
 
     private Long id;
-    private String brand;
-    private String model;
-    private String price;
-    private CarClass class_;
-    private String status;
 
+    private String model;
+
+    private String username;
+
+    private String passport;
+
+    private String price;
 }

@@ -1,8 +1,10 @@
 package com.zhe.carrental.controller;
 
 import com.zhe.carrental.model.DTO.UserDTO;
+import com.zhe.carrental.model.entity.Car;
 import com.zhe.carrental.model.entity.User;
 import com.zhe.carrental.repository.UserRepository;
+import com.zhe.carrental.service.CarService;
 import com.zhe.carrental.service.ManagerService;
 import com.zhe.carrental.service.SecurityService;
 import com.zhe.carrental.service.UserService;
@@ -24,6 +26,9 @@ public class UserController {
     private UserService userService;
 
     @Autowired
+    private CarService carService;
+
+    @Autowired
     private UserRepository userRepository;
     //admin
     @Autowired
@@ -40,12 +45,16 @@ public class UserController {
 
     @GetMapping("/home")
     public String home(Model model) {
+        List<Car> cars = carService.findAllCars();
+        model.addAttribute("home", cars);
         return "home";
     }
 
 
     @GetMapping("/")
     public String home2(Model model) {
+        List<Car> cars = carService.findAllCars();
+        model.addAttribute("cars", cars);
         return "home";
     }
 

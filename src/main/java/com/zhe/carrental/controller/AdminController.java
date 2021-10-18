@@ -1,12 +1,11 @@
 package com.zhe.carrental.controller;
 
+import com.zhe.carrental.model.DTO.CarDTO;
 import com.zhe.carrental.model.DTO.UserDTO;
+import com.zhe.carrental.model.entity.Car;
 import com.zhe.carrental.model.entity.User;
 import com.zhe.carrental.model.enums.Status;
-import com.zhe.carrental.service.AdminService;
-import com.zhe.carrental.service.ManagerService;
-import com.zhe.carrental.service.SecurityService;
-import com.zhe.carrental.service.UserService;
+import com.zhe.carrental.service.*;
 import com.zhe.carrental.service.implementation.AdminServiceImpl;
 import com.zhe.carrental.validator.UserValidator;
 import org.modelmapper.ModelMapper;
@@ -26,6 +25,9 @@ public class AdminController {
 
     @Autowired
     private ManagerService managerService;
+
+    @Autowired
+    private CarService carService;
 
     @Autowired
     private UserValidator userValidator;
@@ -70,16 +72,40 @@ public class AdminController {
     }
 
     @PostMapping("/{id}/permit")
-    public String StatusPermit(@PathVariable Long id){
-
-        adminService.updateStatus(id, Status.PERMITTED);
+    public String StatusPermit(@PathVariable String id){
+        Long sId = Long.valueOf(id);
+        adminService.updateStatus(sId, Status.PERMITTED);
         return "redirect:/usercontrol";
     }
 
     @PostMapping("/{id}/ban")
-    public String StatusBanned(@PathVariable Long id){
-
-        adminService.updateStatus(id, Status.BANNED);
+    public String StatusBanned(@PathVariable String id){
+        Long sId = Long.valueOf(id);
+        adminService.updateStatus(sId, Status.BANNED);
         return "redirect:/usercontrol";
+    }
+
+    @GetMapping("/ucarcontrol")
+    public String carcontrol(Model model) {
+        List<Car> cars = carService.findAllCars();
+        model.addAttribute("cars", cars);
+        return "ucarcontrol";
+    }
+
+    @GetMapping("/ucaradd")
+    public String caradd(Model model) {
+        model.addAttribute("carForm", new CarDTO());
+        return "ucaradd";
+    }
+
+    @PostMapping("/ucaradd")
+    public String caradd(@ModelAttribute("carForm") CarDTO carForm, BindingResult bindingResult) {
+        //userValidator.validate(userForm, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "ucaradd";
+        }
+        Car car = mapper.map(carForm, Car.class);
+        carService.save(car);
+        return "redirect:/ucarcontrol";
     }
 }

@@ -10,6 +10,7 @@ import com.zhe.carrental.repository.UserRepository;
 import com.zhe.carrental.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +21,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    private CarRepository carRepository;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -40,14 +38,5 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUsername(username);
     }
 
-    @Override
-    public List<Car> findAllCars() {
-        List<Car> cars = carRepository.findAll();
-        return cars;
-    }
-
-    @Override
-    public List<Car> findAllCars(String sort) {
-        return null;
-    }
+    /**/
 }
