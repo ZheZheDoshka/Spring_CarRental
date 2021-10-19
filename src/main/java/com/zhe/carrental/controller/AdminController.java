@@ -125,6 +125,7 @@ public class AdminController {
     @PostMapping("/{id}/caredit")
     public String CarEdit(@ModelAttribute("carForm") CarDTO carForm, BindingResult bindingResult, @PathVariable String id){
         Long sId = Long.valueOf(id);
+        //adminService.updateCar(sId, carForm.getModel(), carForm.getBrand(), carForm.getClass_(), carForm.getPrice());
         adminService.deleteCarById(sId);
         if (bindingResult.hasErrors()) {
             return "ucaredit";

@@ -1,6 +1,7 @@
 package com.zhe.carrental.model.entity;
 
 import com.zhe.carrental.model.enums.CarClass;
+import com.zhe.carrental.model.enums.ReviewStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,8 +20,8 @@ public class RentForm {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "model")
-    private String model;
+    @Column(name = "carid")
+    private Long carid;
 
     @Column(name = "username")
     private String username;
@@ -30,4 +31,10 @@ public class RentForm {
 
     @Column(name = "price")
     private String price;
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "status")
+    private ReviewStatus status;
+
+
 }

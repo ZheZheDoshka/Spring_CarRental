@@ -1,17 +1,19 @@
 package com.zhe.carrental.controller;
 
+import com.zhe.carrental.model.DTO.CarDTO;
+import com.zhe.carrental.model.DTO.RentFormDTO;
 import com.zhe.carrental.model.DTO.UserDTO;
 import com.zhe.carrental.model.entity.Car;
+import com.zhe.carrental.model.entity.RentForm;
 import com.zhe.carrental.model.entity.User;
+import com.zhe.carrental.repository.CarRepository;
 import com.zhe.carrental.repository.UserRepository;
-import com.zhe.carrental.service.CarService;
-import com.zhe.carrental.service.ManagerService;
-import com.zhe.carrental.service.SecurityService;
-import com.zhe.carrental.service.UserService;
+import com.zhe.carrental.service.*;
 import com.zhe.carrental.validator.UserValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,6 +32,9 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private CarRepository carRepository;
     //admin
     @Autowired
     private ManagerService managerService;
@@ -39,6 +44,9 @@ public class UserController {
 
     @Autowired
     private SecurityService securityService;
+
+    @Autowired
+    private RentFormService rentFormService;
 
     @Autowired
     private ModelMapper mapper;
@@ -93,5 +101,21 @@ public class UserController {
         return "logout";
     }
 
+    @GetMapping("/{id}/rental")
+    public String CarEdit(Model model, @PathVariable String id) {
+        model.addAttribute("rentForm", new RentFormDTO());
+        model.addAttribute("id", id);
+        return "rental";
+    }
 
+    @PostMapping("/{id}/{dr}/rental")
+    public String CarEdit(Authentication authentication, @ModelAttribute("rentForm") RentFormDTO rentForm,
+                          BindingResult bindingResult, @PathVariable String id, @PathVariable String dr) {
+        Long sId = Long.valueOf(id);
+        Long price = Long.valueOf(carRepository.findById(sId).get().getPrice()) + Long.valueOf(dr)*400;
+        String username = authentication.getName();
+        RentForm rentForm1 = mapper.map(rentForm, RentForm.class);
+        rentFormService.save(rentForm1, username, sId, String.valueOf(price));
+        return "home";
+    }
 }

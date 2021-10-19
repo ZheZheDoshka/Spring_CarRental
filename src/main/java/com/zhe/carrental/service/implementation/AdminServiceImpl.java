@@ -2,6 +2,7 @@ package com.zhe.carrental.service.implementation;
 
 import com.zhe.carrental.model.entity.Car;
 import com.zhe.carrental.model.entity.User;
+import com.zhe.carrental.model.enums.CarClass;
 import com.zhe.carrental.model.enums.Status;
 import com.zhe.carrental.repository.AdminCarRepository;
 import com.zhe.carrental.repository.AdminUserRepository;
@@ -40,5 +41,11 @@ public class AdminServiceImpl implements AdminService {
     @Transactional
     public void updateStatus(Long id, Status status) {
         adminUserRepository.changeUserStatus(id ,status);
+    }
+
+    @Override
+    @Transactional
+    public void updateCar(Long id, String model, String brand, CarClass class_, String price) {
+        adminCarRepository.changeUserStatus(id, model, brand, class_, price);
     }
 }
