@@ -21,9 +21,9 @@
             <div class="col-xs-6 col-md-2" th:text = "${car.getPrice()}"></div>
             <div class="col-xs-6 col-md-2" th:text = "${car.getStatus()}"></div>
             <div class="col-xs-6 col-md-2" >
-                <form method="POST" action="#" class="form-signin">
-                    <button class="btn btn-light" type="submit" th:utext="#{user.rent}"></button>
-                </form>
+
+                    <a class="btn btn-light" th:href ="@{'/'+ ${car.getId()} + '/rental'}" th:utext="#{user.rent}"></a>
+
             </div>
         </div>
     </div>

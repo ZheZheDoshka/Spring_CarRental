@@ -108,14 +108,20 @@ public class UserController {
         return "rental";
     }
 
-    @PostMapping("/{id}/{dr}/rental")
+    @PostMapping("/{id}/rental")
     public String CarEdit(Authentication authentication, @ModelAttribute("rentForm") RentFormDTO rentForm,
-                          BindingResult bindingResult, @PathVariable String id, @PathVariable String dr) {
+                          BindingResult bindingResult, @PathVariable String id) {
         Long sId = Long.valueOf(id);
-        Long price = Long.valueOf(carRepository.findById(sId).get().getPrice()) + Long.valueOf(dr)*400;
+        int dr = 0;
+        if (rentForm.getDriver() == "Driver")
+        {
+            dr = 1;
+        }
+        Long price = Long.valueOf( ((int) Double.parseDouble(carRepository.findById(sId).get().getPrice())*100 + dr*4000)/100);
         String username = authentication.getName();
         RentForm rentForm1 = mapper.map(rentForm, RentForm.class);
         rentFormService.save(rentForm1, username, sId, String.valueOf(price));
-        return "home";
+        carService.changeCarStatus(sId, "RENTED");
+        return "redirect:/home";
     }
 }

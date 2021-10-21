@@ -6,6 +6,7 @@ import com.zhe.carrental.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -33,5 +34,11 @@ public class CarServiceImpl implements CarService {
             return carRepository.findAll(Sort.by(Sort.DEFAULT_DIRECTION, sort));
         }
         return findAllCars();
+    }
+
+    @Override
+    @Transactional
+    public void changeCarStatus(Long Id, String status) {
+        carRepository.changeCarStatus(Id, status);
     }
 }

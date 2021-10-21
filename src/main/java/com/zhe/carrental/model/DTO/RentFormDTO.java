@@ -28,4 +28,6 @@ public class RentFormDTO {
     private String passport;
 
     private String price;
+
+    private String driver;
 }

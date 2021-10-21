@@ -36,5 +36,6 @@ public class RentForm {
     @Column(name = "status")
     private ReviewStatus status;
 
-
+    @Column(name="driver")
+    private String driver;
 }

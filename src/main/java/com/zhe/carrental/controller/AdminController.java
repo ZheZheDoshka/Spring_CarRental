@@ -10,6 +10,7 @@ import com.zhe.carrental.service.implementation.AdminServiceImpl;
 import com.zhe.carrental.validator.UserValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,12 +43,14 @@ public class AdminController {
 
     //admin
     @GetMapping("/registration_manager")
+    @Secured("ROLE_ADMIN")
     public String manager_registration(Model model) {
         model.addAttribute("userForm", new UserDTO());
         return "registration_manager";
     }
 
     @PostMapping("/registration_manager")
+    @Secured("ROLE_ADMIN")
     public String manager_registration(@ModelAttribute("userForm") UserDTO userForm, BindingResult bindingResult) {
         //userValidator.validate(userForm, bindingResult);
         if (bindingResult.hasErrors()) {
@@ -59,11 +62,13 @@ public class AdminController {
     }
 
     @GetMapping("/admin")
+    @Secured("ROLE_ADMIN")
     public String admin(Model model) {
         return "admin";
     }
 
     @GetMapping("usercontrol")
+    @Secured("ROLE_ADMIN")
     public String usercontrol(Model model) {
         List<User> users = adminService.findAllUsers();
         model.addAttribute("users", users);
@@ -71,6 +76,7 @@ public class AdminController {
     }
 
     @PostMapping("/{id}/permit")
+    @Secured("ROLE_ADMIN")
     public String StatusPermit(@PathVariable String id){
         Long sId = Long.valueOf(id);
         adminService.updateStatus(sId, Status.PERMITTED);
@@ -78,6 +84,7 @@ public class AdminController {
     }
 
     @PostMapping("/{id}/ban")
+    @Secured("ROLE_ADMIN")
     public String StatusBanned(@PathVariable String id){
         Long sId = Long.valueOf(id);
         adminService.updateStatus(sId, Status.BANNED);
@@ -85,6 +92,7 @@ public class AdminController {
     }
 
     @GetMapping("/ucarcontrol")
+    @Secured("ROLE_ADMIN")
     public String carcontrol(Model model) {
         List<Car> cars = carService.findAllCars();
         model.addAttribute("cars", cars);
@@ -92,12 +100,14 @@ public class AdminController {
     }
 
     @GetMapping("/ucaradd")
+    @Secured("ROLE_ADMIN")
     public String caradd(Model model) {
         model.addAttribute("carForm", new CarDTO());
         return "ucaradd";
     }
 
     @PostMapping("/ucaradd")
+    @Secured("ROLE_ADMIN")
     public String caradd(@ModelAttribute("carForm") CarDTO carForm, BindingResult bindingResult) {
         //userValidator.validate(userForm, bindingResult);
         if (bindingResult.hasErrors()) {
@@ -116,6 +126,7 @@ public class AdminController {
     }
 
     @GetMapping("/{id}/caredit")
+    @Secured("ROLE_ADMIN")
     public String CarEdit(Model model, @PathVariable String id) {
         model.addAttribute("carForm", new CarDTO());
         model.addAttribute("id", id);

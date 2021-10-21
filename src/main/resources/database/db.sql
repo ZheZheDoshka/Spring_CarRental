@@ -32,7 +32,8 @@ CREATE TABLE rentform (
     username VARCHAR(32) NOT NULL ,
     passport VARCHAR(10) NOT NULL ,
     price VARCHAR(64) NOT NULL ,
-    status VARCHAR(64) NOT NULL
+    status VARCHAR(64) NOT NULL ,
+    driver VARCHAR(10) NOT NULL
 );
 
 INSERT INTO users VALUES (1, 'admin1610', '$2a$12$odumr60QQXCkeA/TOhvJZ.GHC5CZO8H4BRRlZSIzrX.0OhrfDpJwO', 'ADMIN', 'PERMITTED');

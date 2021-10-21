@@ -13,4 +13,6 @@ public interface CarService {
     List<Car> findAllCars();
 
     List<Car> findAllCars(String sort);
+
+    void changeCarStatus(Long Id, String status);
 }

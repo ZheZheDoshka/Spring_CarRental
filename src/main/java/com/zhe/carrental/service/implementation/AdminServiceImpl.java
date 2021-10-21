@@ -44,8 +44,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    @Transactional
     public void updateCar(Long id, String model, String brand, CarClass class_, String price) {
-        adminCarRepository.changeUserStatus(id, model, brand, class_, price);
+
     }
 }
