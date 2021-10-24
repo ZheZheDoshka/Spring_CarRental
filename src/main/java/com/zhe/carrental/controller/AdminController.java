@@ -52,7 +52,7 @@ public class AdminController {
     @PostMapping("/registration_manager")
     @Secured("ROLE_ADMIN")
     public String manager_registration(@ModelAttribute("userForm") UserDTO userForm, BindingResult bindingResult) {
-        //userValidator.validate(userForm, bindingResult);
+        userValidator.validate(userForm, bindingResult);
         if (bindingResult.hasErrors()) {
             return "registration_manager";
         }

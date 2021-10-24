@@ -1,5 +1,6 @@
 package com.zhe.carrental.validator;
 
+import com.zhe.carrental.model.DTO.UserDTO;
 import com.zhe.carrental.model.entity.User;
 import com.zhe.carrental.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class UserValidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        User user = (User) target;
+        UserDTO user = (UserDTO) target;
         if((user.getUsername().length() < 2)||(user.getUsername().length()>32))
             errors.rejectValue("username","login.invalid.username");
 

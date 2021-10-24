@@ -45,4 +45,9 @@ public class RentFormServiceImpl  implements RentFormService {
         }
         return forms;
     }
+
+    @Override
+    public RentForm findById(Long id) {
+        return rentFormRepository.findById(id).get();
+    }
 }

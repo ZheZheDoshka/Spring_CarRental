@@ -5,7 +5,10 @@ import com.zhe.carrental.model.DTO.RentFormDTO;
 import com.zhe.carrental.model.DTO.UserDTO;
 import com.zhe.carrental.model.entity.Car;
 import com.zhe.carrental.model.entity.RentForm;
+import com.zhe.carrental.model.entity.Ticket;
 import com.zhe.carrental.model.entity.User;
+import com.zhe.carrental.model.enums.ReviewStatus;
+import com.zhe.carrental.model.enums.Status;
 import com.zhe.carrental.repository.CarRepository;
 import com.zhe.carrental.repository.UserRepository;
 import com.zhe.carrental.service.*;
@@ -29,6 +32,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private TicketService ticketService;
 
     @Autowired
     private CarService carService;
@@ -77,7 +83,7 @@ public class UserController {
 
     @PostMapping("/registration")
     public String registration(@ModelAttribute("userForm") UserDTO userForm, BindingResult bindingResult) {
-        //userValidator.validate(userForm, bindingResult);
+        userValidator.validate(userForm, bindingResult);
         if (bindingResult.hasErrors()) {
             return "registration";
         }
@@ -101,7 +107,7 @@ public class UserController {
 
     @GetMapping("/logout")
     public String logout(Model model) {
-        return "logout";
+        return "redirect:/login";
     }
 
     @GetMapping("/{id}/rental")
@@ -123,7 +129,7 @@ public class UserController {
         {
             dr = 1;
         }
-        long days = TimeUnit.DAYS.convert(rentForm.getToDate().getTime() - rentForm.getFromDate().getTime(), TimeUnit.MILLISECONDS);
+        long days = TimeUnit.DAYS.convert(rentForm.getToDate().getTime() - rentForm.getFromDate().getTime(), TimeUnit.MILLISECONDS) + 1;
         Long price = Long.valueOf( ((int) Double.parseDouble(carRepository.findById(sId).get().getPrice())*100 + dr*4000)/100)*days;
         String username = authentication.getName();
         RentForm rentForm1 = mapper.map(rentForm, RentForm.class);
@@ -136,7 +142,15 @@ public class UserController {
     public String cabinet(Authentication authentication, Model model) {
         List<RentForm> forms = rentFormService.findFormsByUsername(authentication.getName());;
         model.addAttribute("forms", forms);
+        List<Ticket> tickets = ticketService.findTicketsByUsername(authentication.getName());;
+        model.addAttribute("tickets", tickets);
         return "usercabinet";
     }
 
+    @PostMapping("/{id}/PAY")
+    public String StatusReject(@PathVariable String id){
+        Long sId = Long.valueOf(id);
+        ticketService.changeTicketStatus(sId, Status.PAYED);
+        return "redirect:/usercabinet";
+    }
 }

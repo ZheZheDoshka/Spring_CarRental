@@ -42,16 +42,18 @@
     <div class="alert alert-info mt-2", th:each="form: ${forms}" >
         <div class="row">
             <div class="col-xs-6 col-md-2" th:text = "${form.getUsername()}"></div>
-            <div class="col-xs-6 col-md-2" th:text = "${form.getUsername()}"></div>
-            <div class="col-xs-6 col-md-2" th:text = "${form.getStatus().name()}"></div>
-            <div class="col-xs-6 col-md-2" th:switch="${form.getDriver()}"></div>
-            <div class="col-xs-6 col-md-2">
+            <div class="col-xs-6 col-md-1" th:text = "${form.getPrice()}"></div>
+            <div class="col-xs-6 col-md-2" th:text = "${form.getFromDate()}"></div>
+            <div class="col-xs-6 col-md-2" th:text = "${form.getToDate()}"></div>
+            <div class="col-xs-6 col-md-1" th:text="${form.getStatus().name()}"></div>
+            <div class="col-xs-6 col-md-1">
                 <form method="POST" th:action="@{'/'+ ${form.getId()} + '/ACCEPTED'}" class="form-signin">
                     <button class="btn btn-light" type="submit" th:utext="#{manager.accept}"></button>
                 </form>
                 </p>
             </div>
-                <div class="col-xs-6 col-md-2">
+
+            <div class="col-xs-6 col-md-1">
                 <form method="POST" th:action="@{'/'+ ${form.getId()} + '/REJECTED'}" class="form-signin">
                     <button class="btn btn-light" type="submit" th:utext="#{manager.reject}"></button>
                 </form>

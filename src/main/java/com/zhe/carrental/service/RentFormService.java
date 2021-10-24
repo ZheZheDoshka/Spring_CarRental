@@ -12,5 +12,7 @@ public interface RentFormService {
 
     List<RentForm> findAllForms();
 
+    RentForm findById(Long id);
+
     List<RentForm> findFormsByUsername(String Username);
 }

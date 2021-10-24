@@ -42,14 +42,18 @@ CREATE TABLE rentform (
 CREATE TABLE ticket (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
     carid INT ,
-    reason VARCHAR(64) NOT NULL DEFAULT 'Car rental payment',
-    cardnumber VARCHAR(250) NOT NULL DEFAULT 'так',
-    price INT
+    username VARCHAR(32) NOT NULL ,
+    reason VARCHAR(64) DEFAULT 'Car rental payment',
+    cardnumber VARCHAR(250) DEFAULT 'так',
+    price INT ,
+    status VARCHAR(32) DEFAULT 'UNPAYED'
 );
 
 INSERT INTO users VALUES (1, 'admin1610', '$2a$12$odumr60QQXCkeA/TOhvJZ.GHC5CZO8H4BRRlZSIzrX.0OhrfDpJwO', 'ADMIN', 'PERMITTED');
 
 INSERT INTO users VALUES (2, 'testUser', '$2a$12$odumr60QQXCkeA/TOhvJZ.GHC5CZO8H4BRRlZSIzrX.0OhrfDpJwO', 'USER', 'PERMITTED');
+
+INSERT INTO users VALUES (3, 'testManager', '$2a$12$odumr60QQXCkeA/TOhvJZ.GHC5CZO8H4BRRlZSIzrX.0OhrfDpJwO', 'MANAGER', 'PERMITTED');
 
 INSERT INTO cars VALUES (1, 'NISSAN', 'A', 'Silvia', '250.00', 'AVAILABLE');
 
