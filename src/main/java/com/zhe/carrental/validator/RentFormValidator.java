@@ -11,10 +11,9 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-public class RentFormValidator implements Validator {
+import java.util.concurrent.TimeUnit;
 
-    @Autowired
-    private RentFormService rentFormService;
+public class RentFormValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -23,8 +22,12 @@ public class RentFormValidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        RentFormDTO user = (RentFormDTO) target;
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors,"passport", "passport.required");
-
+        RentFormDTO rentForm = (RentFormDTO) target;
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors,"passport", "rent.error.passport");
+        if(rentForm.getPassport().length() != 9)
+            errors.rejectValue("passport","rent.error.passport");
+        double dateValidating = TimeUnit.DAYS.convert(rentForm.getToDate().getTime() - rentForm.getFromDate().getTime(), TimeUnit.MILLISECONDS);
+        if(dateValidating<0)
+            errors.rejectValue("toDate","rent.error.date");
     }
 }
