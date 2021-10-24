@@ -9,6 +9,7 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import java.sql.Date;
 
 @Getter
 @Setter
@@ -30,4 +31,8 @@ public class RentFormDTO {
     private String price;
 
     private String driver;
+
+    private Date fromDate;
+
+    private Date toDate;
 }

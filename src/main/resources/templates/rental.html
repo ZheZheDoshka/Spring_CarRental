@@ -30,7 +30,16 @@
                         <input type="radio" id="driver"
                                name="driver" value="Driver">
                         <label for="driver" th:utext = "#{user.driver}"></label>
-
+                        <div>
+                        <input type="date" id="fromDate" name="fromDate"
+                               max="2022-01-00" th:attr="value=${date}, min=${date}">
+                            <label for="fromDate" th:utext = "#{user.fromdate}"></label>
+                        </div>
+                        <div>
+                        <input type="date" id="toDate" name="toDate"
+                               max="2022-01-00" th:attr="value=${date}, min=${date}">
+                            <label for="toDate" th:utext = "#{user.todate}"></label>
+                        </div>
                         <button type="submit" class="btn btn-dark" th:utext="#{user.rent}"></button>
                         <div class="text-right">
                             <a class="text-info" href="/home" th:utext="#{user.back}"></a>

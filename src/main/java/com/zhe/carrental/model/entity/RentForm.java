@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 @Entity
 @Getter
@@ -38,4 +39,10 @@ public class RentForm {
 
     @Column(name="driver")
     private String driver;
+
+    @Column(name="from_date")
+    private Date fromDate;
+
+    @Column(name="to_date")
+    private Date toDate;
 }

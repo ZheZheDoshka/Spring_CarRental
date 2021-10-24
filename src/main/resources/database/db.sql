@@ -2,6 +2,7 @@ DROP TABLE users;
 DROP TABLE cars;
 DROP TABLE brands;
 DROP TABLE rentform;
+DROP TABLE ticket;
 
 CREATE TABLE users (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
@@ -33,11 +34,25 @@ CREATE TABLE rentform (
     passport VARCHAR(10) NOT NULL ,
     price VARCHAR(64) NOT NULL ,
     status VARCHAR(64) NOT NULL ,
-    driver VARCHAR(10) NOT NULL
+    driver VARCHAR(10) NOT NULL ,
+    from_date DATE DEFAULT NULL ,
+    to_date DATE DEFAULT NULL
+);
+
+CREATE TABLE ticket (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+    carid INT ,
+    reason VARCHAR(64) NOT NULL DEFAULT 'Car rental payment',
+    cardnumber VARCHAR(250) NOT NULL DEFAULT 'так',
+    price INT
 );
 
 INSERT INTO users VALUES (1, 'admin1610', '$2a$12$odumr60QQXCkeA/TOhvJZ.GHC5CZO8H4BRRlZSIzrX.0OhrfDpJwO', 'ADMIN', 'PERMITTED');
 
 INSERT INTO users VALUES (2, 'testUser', '$2a$12$odumr60QQXCkeA/TOhvJZ.GHC5CZO8H4BRRlZSIzrX.0OhrfDpJwO', 'USER', 'PERMITTED');
 
-INSERT INTO cars VALUES (1, 'NISSAN', 'A', 'Silvia', '250.00', 'AVAILABLE')
+INSERT INTO cars VALUES (1, 'NISSAN', 'A', 'Silvia', '250.00', 'AVAILABLE');
+
+INSERT INTO cars VALUES (2, 'NISSAN', 'C', 'Rogue', '200.00', 'AVAILABLE');
+
+INSERT INTO cars VALUES (3, 'MITSUBISHI', 'B', 'aCVASfafv', '200.00', 'AVAILABLE');

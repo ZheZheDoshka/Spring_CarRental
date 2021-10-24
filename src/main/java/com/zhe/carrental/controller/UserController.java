@@ -19,7 +19,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Controller
 public class UserController {
@@ -105,6 +108,9 @@ public class UserController {
     public String CarEdit(Model model, @PathVariable String id) {
         model.addAttribute("rentForm", new RentFormDTO());
         model.addAttribute("id", id);
+        long currentTime=System.currentTimeMillis();
+        Date currentDate = new Date(currentTime);
+        model.addAttribute("date", currentDate);
         return "rental";
     }
 
@@ -117,11 +123,20 @@ public class UserController {
         {
             dr = 1;
         }
-        Long price = Long.valueOf( ((int) Double.parseDouble(carRepository.findById(sId).get().getPrice())*100 + dr*4000)/100);
+        long days = TimeUnit.DAYS.convert(rentForm.getToDate().getTime() - rentForm.getFromDate().getTime(), TimeUnit.MILLISECONDS);
+        Long price = Long.valueOf( ((int) Double.parseDouble(carRepository.findById(sId).get().getPrice())*100 + dr*4000)/100)*days;
         String username = authentication.getName();
         RentForm rentForm1 = mapper.map(rentForm, RentForm.class);
         rentFormService.save(rentForm1, username, sId, String.valueOf(price));
-        carService.changeCarStatus(sId, "RENTED");
+        //carService.changeCarStatus(sId, "RENTED");
         return "redirect:/home";
     }
+
+    @GetMapping("/usercabinet")
+    public String cabinet(Authentication authentication, Model model) {
+        List<RentForm> forms = rentFormService.findFormsByUsername(authentication.getName());;
+        model.addAttribute("forms", forms);
+        return "usercabinet";
+    }
+
 }

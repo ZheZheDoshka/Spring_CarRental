@@ -15,20 +15,18 @@
         });
     </script>
 </head>
-<body>
 
+<body>
 <div class="container">
     <header class="d-flex justify-content-md-end">
         <ul class="nav nav-pills">
-
-            <li class="nav-item"><a href="/usercontrol" class="nav-link" th:utext="#{admin.control.user}"></a></li>
-            <li class="nav-item"><a href="/ucarcontrol" class="nav-link" th:utext="#{admin.control.car}"></a></li>
-            <li class="nav-item"><a href="/registration_manager" class="nav-link" th:utext="#{admin.control.manager}"></a></li>
+            <li class="nav-item"><a href="/usercabinet" class="nav-link active" th:utext="#{navlink.cabinet}"></a></li>
+            <li class="nav-item"><a href="/" class="nav-link" th:utext="#{navlink.home}"></a></li>
             <li class="nav-item"><a href="/logout" class="nav-link" th:utext="#{login.out}"></a></li>
             <li class="nav-item">
                 <div class="dropdown">
                     <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="true" th:utext="#{navlink.language}">
+                       aria-expanded="true" th:utext="#{navlink.language}">
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                         <li><a class="dropdown-item" href="?lang=ua">UA</a></li>
@@ -39,6 +37,18 @@
             </li>
         </ul>
     </header>
+</div>
+<div class = "container">
+    <h1 th:utext="#{manager.formlist}"></h1>
+
+    <div class="alert alert-info mt-2", th:each="form: ${forms}" >
+        <div class="row">
+            <div class="col-xs-6 col-md-2" th:text = "${form.getUsername()}"></div>
+            <div class="col-xs-6 col-md-2" th:text = "${form.getStatus().name()}"></div>
+            <div class="col-xs-6 col-md-2" th:switch="${form.getDriver()}"></div>
+        </div>
+    </div>
+
 </div>
 </body>
 </html>

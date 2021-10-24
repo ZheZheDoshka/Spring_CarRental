@@ -11,4 +11,6 @@ public interface RentFormService {
     void save(RentForm rentForm, String username, Long ID, String price);
 
     List<RentForm> findAllForms();
+
+    List<RentForm> findFormsByUsername(String Username);
 }
