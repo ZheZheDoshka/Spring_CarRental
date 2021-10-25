@@ -12,6 +12,7 @@ import com.zhe.carrental.model.enums.Status;
 import com.zhe.carrental.repository.CarRepository;
 import com.zhe.carrental.repository.UserRepository;
 import com.zhe.carrental.service.*;
+import com.zhe.carrental.validator.RentFormValidator;
 import com.zhe.carrental.validator.UserValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,9 +50,6 @@ public class UserController {
     private ManagerService managerService;
 
     @Autowired
-    private UserValidator userValidator;
-
-    @Autowired
     private SecurityService securityService;
 
     @Autowired
@@ -59,6 +57,12 @@ public class UserController {
 
     @Autowired
     private ModelMapper mapper;
+
+    @Autowired
+    private UserValidator userValidator;
+
+    @Autowired
+    private RentFormValidator rentFormValidator;
 
     @GetMapping("/home")
     public String home(Model model) {
@@ -123,6 +127,10 @@ public class UserController {
     @PostMapping("/{id}/rental")
     public String CarEdit(Authentication authentication, @ModelAttribute("rentForm") RentFormDTO rentForm,
                           BindingResult bindingResult, @PathVariable String id) {
+        rentFormValidator.validate(rentForm, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "/{id}/rental";
+        }
         Long sId = Long.valueOf(id);
         int dr = 0;
         if (rentForm.getDriver() == "Driver")

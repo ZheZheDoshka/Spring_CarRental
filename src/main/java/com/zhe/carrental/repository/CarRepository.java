@@ -16,4 +16,6 @@ public interface CarRepository extends JpaRepository<Car, Long> {
     @Modifying
     @Query(value = "UPDATE Car u SET u.status = :status where u.id = :id")
     void changeCarStatus(@Param("id") Long id, @Param("status") String status);
+
+
 }

@@ -4,12 +4,14 @@ import com.zhe.carrental.model.DTO.CarDTO;
 import com.zhe.carrental.model.DTO.RentFormDTO;
 import com.zhe.carrental.model.entity.Car;
 import com.zhe.carrental.model.entity.RentForm;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import java.util.concurrent.TimeUnit;
 
+@Component
 public class CarValidator implements Validator {
 
     @Override

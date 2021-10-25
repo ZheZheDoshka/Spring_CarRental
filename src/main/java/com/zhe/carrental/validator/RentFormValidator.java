@@ -7,12 +7,14 @@ import com.zhe.carrental.model.entity.User;
 import com.zhe.carrental.service.RentFormService;
 import com.zhe.carrental.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import java.util.concurrent.TimeUnit;
 
+@Component
 public class RentFormValidator implements Validator {
 
     @Override

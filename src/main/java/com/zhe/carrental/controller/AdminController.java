@@ -7,6 +7,7 @@ import com.zhe.carrental.model.entity.User;
 import com.zhe.carrental.model.enums.Status;
 import com.zhe.carrental.service.*;
 import com.zhe.carrental.service.implementation.AdminServiceImpl;
+import com.zhe.carrental.validator.CarValidator;
 import com.zhe.carrental.validator.UserValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@PreAuthorize("hasRole('ADMIN')")
+//@PreAuthorize("hasRole('ADMIN')")
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class AdminController {
 
     @Autowired
@@ -33,6 +35,9 @@ public class AdminController {
     private UserValidator userValidator;
 
     @Autowired
+    private CarValidator carValidator;
+
+    @Autowired
     private SecurityService securityService;
 
     @Autowired
@@ -43,14 +48,13 @@ public class AdminController {
 
     //admin
     @GetMapping("/registration_manager")
-    @Secured("ROLE_ADMIN")
     public String manager_registration(Model model) {
         model.addAttribute("userForm", new UserDTO());
         return "registration_manager";
     }
+//@Secured("ROLE_ADMIN")
 
     @PostMapping("/registration_manager")
-    @Secured("ROLE_ADMIN")
     public String manager_registration(@ModelAttribute("userForm") UserDTO userForm, BindingResult bindingResult) {
         userValidator.validate(userForm, bindingResult);
         if (bindingResult.hasErrors()) {
@@ -62,13 +66,11 @@ public class AdminController {
     }
 
     @GetMapping("/admin")
-    @Secured("ROLE_ADMIN")
     public String admin(Model model) {
         return "admin";
     }
 
     @GetMapping("usercontrol")
-    @Secured("ROLE_ADMIN")
     public String usercontrol(Model model) {
         List<User> users = adminService.findAllUsers();
         model.addAttribute("users", users);
@@ -76,7 +78,6 @@ public class AdminController {
     }
 
     @PostMapping("/{id}/permit")
-    @Secured("ROLE_ADMIN")
     public String StatusPermit(@PathVariable String id){
         Long sId = Long.valueOf(id);
         adminService.updateStatus(sId, Status.PERMITTED);
@@ -84,7 +85,6 @@ public class AdminController {
     }
 
     @PostMapping("/{id}/ban")
-    @Secured("ROLE_ADMIN")
     public String StatusBanned(@PathVariable String id){
         Long sId = Long.valueOf(id);
         adminService.updateStatus(sId, Status.BANNED);
@@ -92,7 +92,6 @@ public class AdminController {
     }
 
     @GetMapping("/ucarcontrol")
-    @Secured("ROLE_ADMIN")
     public String carcontrol(Model model) {
         List<Car> cars = carService.findAllCars();
         model.addAttribute("cars", cars);
@@ -100,14 +99,12 @@ public class AdminController {
     }
 
     @GetMapping("/ucaradd")
-    @Secured("ROLE_ADMIN")
     public String caradd(Model model) {
         model.addAttribute("carForm", new CarDTO());
         return "ucaradd";
     }
 
     @PostMapping("/ucaradd")
-    @Secured("ROLE_ADMIN")
     public String caradd(@ModelAttribute("carForm") CarDTO carForm, BindingResult bindingResult) {
         //userValidator.validate(userForm, bindingResult);
         if (bindingResult.hasErrors()) {
@@ -126,17 +123,22 @@ public class AdminController {
     }
 
     @GetMapping("/{id}/caredit")
-    @Secured("ROLE_ADMIN")
     public String CarEdit(Model model, @PathVariable String id) {
         model.addAttribute("carForm", new CarDTO());
         model.addAttribute("id", id);
         return "ucaredit";
+
+
     }
 
     @PostMapping("/{id}/caredit")
     public String CarEdit(@ModelAttribute("carForm") CarDTO carForm, BindingResult bindingResult, @PathVariable String id){
         Long sId = Long.valueOf(id);
         //adminService.updateCar(sId, carForm.getModel(), carForm.getBrand(), carForm.getClass_(), carForm.getPrice());
+        carValidator.validate(carForm, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "/{id}/caredit";
+        }
         adminService.deleteCarById(sId);
         if (bindingResult.hasErrors()) {
             return "ucaredit";
