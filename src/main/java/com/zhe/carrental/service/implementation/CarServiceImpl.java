@@ -4,6 +4,8 @@ import com.zhe.carrental.model.entity.Car;
 import com.zhe.carrental.repository.CarRepository;
 import com.zhe.carrental.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,5 +44,8 @@ public class CarServiceImpl implements CarService {
         carRepository.changeCarStatus(Id, status);
     }
 
-
+    @Override
+    public Page<Car> findAllCars(String sort, Pageable pageable) {
+        return carRepository.findAll(pageable);
+    }
 }

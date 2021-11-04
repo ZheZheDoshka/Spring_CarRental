@@ -16,6 +16,11 @@ import com.zhe.carrental.validator.RentFormValidator;
 import com.zhe.carrental.validator.UserValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -65,8 +70,13 @@ public class UserController {
     private RentFormValidator rentFormValidator;
 
     @GetMapping("/home")
-    public String home(Model model) {
-        List<Car> cars = carService.findAllCars();
+    public String home( @PageableDefault(page = 0, size = 5)
+                        @SortDefault.SortDefaults({
+                                @SortDefault(sort = "brand", direction = Sort.Direction.ASC),
+                                @SortDefault(sort = "id", direction = Sort.Direction.DESC)
+                        })
+                                Pageable pageable, Model model){
+        Page<Car> cars = carService.findAllCars("sort", pageable);
         model.addAttribute("cars", cars);
         return "home";
     }

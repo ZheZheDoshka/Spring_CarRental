@@ -44,14 +44,18 @@
 
 <div class = "container">
     <h1 th:utext="#{admin.car.list}"></h1>
-
+    <div class="row">
+        <div class="col-xs-6 col-md-2" th:text = "#{admin.car.model}" href="?sort=model"></div>
+        <div class="col-xs-6 col-md-1" th:text = "#{admin.car.brand}" href="?sort=brand"></div>
+        <div class="col-xs-6 col-md-1" th:text = "#{admin.car.class}" href="?sort=class"></div>
+        <div class="col-xs-6 col-md-2" th:text = "#{admin.car.price}" href="?sort=price"></div>
+    </div>
     <div class="alert alert-info mt-2", th:each="car : ${cars}" >
         <div class="row">
             <div class="col-xs-6 col-md-2" th:text = "${car.getModel()}"></div>
             <div class="col-xs-6 col-md-1" th:text = "${car.getBrand()}"></div>
             <div class="col-xs-6 col-md-1" th:text = "${car.getClass_()}"></div>
             <div class="col-xs-6 col-md-2" th:text = "${car.getPrice()}"></div>
-            <div class="col-xs-6 col-md-2" th:text = "${car.getStatus()}"></div>
             <div class="col-xs-6 col-md-2" >
 
                     <a class="btn btn-light" th:href ="@{'/'+ ${car.getId()} + '/rental'}" th:utext="#{user.rent}"></a>
@@ -60,5 +64,7 @@
         </div>
     </div>
 </div>
+<a href="?page=0" class="nav-link" th:utext="0"></a>
+<a href="?page=1" class="nav-link" th:utext="1"></a>
 </body>
 </html>

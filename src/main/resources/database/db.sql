@@ -60,3 +60,12 @@ INSERT INTO cars VALUES (1, 'NISSAN', 'A', 'Silvia', '250.00', 'AVAILABLE');
 INSERT INTO cars VALUES (2, 'NISSAN', 'C', 'Rogue', '200.00', 'AVAILABLE');
 
 INSERT INTO cars VALUES (3, 'MITSUBISHI', 'B', 'aCVASfafv', '200.00', 'AVAILABLE');
+
+INSERT INTO cars VALUES (4, 'NISSAN', 'A', 'Silvia', '250.00', 'AVAILABLE');
+
+INSERT INTO cars VALUES (5, 'NISSAN', 'A', 'Silvia', '250.00', 'AVAILABLE');
+
+INSERT INTO cars VALUES (6, 'NISSAN', 'A', 'Silvia', '250.00', 'AVAILABLE')
+
+INSERT INTO cars VALUES (7, 'NISSAN', 'A', 'Silvia', '250.00', 'AVAILABLE');
+
